@@ -60,17 +60,19 @@ const displayPhoneDetails = phone => {
             </div>
             <div class="col-md-8">
                 <div class="card-body p-5">
-                    <h5 class="card-title">Main Features:</h5>
+                    <h5 class="card-title">Main Features:-</h5>
                     <p class="card-text">Chip-Set: ${phone.mainFeatures.chipSet}</p>
                     <p class="card-text">Display-Size: ${phone.mainFeatures.displaySize}</p>
                     <p class="card-text">Memory: ${phone.mainFeatures.memory}</p>
                     <p class="card-text">Storage: ${phone.mainFeatures.storage}</p>
-                    <h5 class="card-title">Sensors:</h5>
+                    <h5 class="card-title">Sensors:-</h5>
                     <p class="card-text">${phone.mainFeatures.sensors[0]},
                         ${phone.mainFeatures.sensors[1]},${phone.mainFeatures.sensors[2]},
                         ${phone.mainFeatures.sensors[3]},${phone.mainFeatures.sensors[4]},
                         ${phone.mainFeatures.sensors[5]}
                     </p>
+                    <h6 class="card-title">Other: ${phone.others ? phone.others.Bluetooth || phone.others : 'Not Found'}</h6>
+
                 </div>
             </div>
         </div>
