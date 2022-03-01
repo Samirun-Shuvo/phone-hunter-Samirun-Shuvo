@@ -1,12 +1,20 @@
+//spinner function
 const toggleSpinner = spinnerDisplayStyle => {
     document.getElementById('spinner').style.display = spinnerDisplayStyle;
 }
+//error message function
 const errorMessage = messageDisplayStyle => {
     document.getElementById('error-message').style.display = messageDisplayStyle;
 }
+// show more phone button function
+const showMoreBtn = showMoreBtnStyle => {
+    document.getElementById('show-more-btn').style.display = showMoreBtnStyle;
+}
+//fetch all phone data
 const phoneSearch = async () => {
     const serchField = document.getElementById('search-field');
     serchText = serchField.value;
+    //case sensitive 
     const textValue = serchText.toLowerCase();
     serchField.value = '';
     toggleSpinner('block');
@@ -19,6 +27,7 @@ const phoneSearch = async () => {
 
 
 }
+// search result display function
 const displaySearchResult = phones => {
     // console.log(phones);
     // console.log(phones.length);
@@ -47,9 +56,11 @@ const displaySearchResult = phones => {
         `;
             searchResult.appendChild(div);
         });
+        showMoreBtn('block');
         toggleSpinner('none');
     }
 }
+//fetch unique phone data
 const phoneDetails = async phoneid => {
     // console.log(phoneid);
     const url = `https://openapi.programming-hero.com/api/phone/${phoneid}`
@@ -58,6 +69,7 @@ const phoneDetails = async phoneid => {
     const data = await res.json()
     displayPhoneDetails(data.data);
 }
+// display phone details function
 const displayPhoneDetails = phone => {
     // console.log(phone);
     const phoneDetailsContaine = document.getElementById('phone-details');
@@ -104,5 +116,5 @@ const displayPhoneDetails = phone => {
     </div>
     `;
     phoneDetailsContaine.appendChild(div);
+    errorMessage('none');
 }
-

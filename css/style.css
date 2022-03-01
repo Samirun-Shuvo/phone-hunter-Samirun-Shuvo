@@ -3,14 +3,18 @@
     height: 200px;
     margin: auto;
     padding: 10px;
-    }
+}
 .details-img img {
     width: 300px;
     height: 350px;
-    }
+}
 #spinner {
     display: none;
-    }
+}
 #error-message {
     display: none;
-    }
+}
+#show-more-btn{
+    display: none;
+}
+
