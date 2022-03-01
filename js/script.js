@@ -1,31 +1,41 @@
 const toggleSpinner = spinnerDisplayStyle => {
     document.getElementById('spinner').style.display = spinnerDisplayStyle;
 }
+const errorMessage = messageDisplayStyle => {
+    document.getElementById('error-message').style.display = messageDisplayStyle;
+}
 const phoneSearch = async () => {
     const serchField = document.getElementById('search-field');
     serchText = serchField.value;
+    const textValue = serchText.toLowerCase();
     serchField.value = '';
     toggleSpinner('block');
-    const url = `https://openapi.programming-hero.com/api/phones?search=${serchText}`
+    const url = `https://openapi.programming-hero.com/api/phones?search=${textValue}`
     // console.log(url);
     const res = await fetch(url)
     const data = await res.json()
     // console.log(data.data);
     displaySearchResult(data.data);
+
+
 }
 const displaySearchResult = phones => {
     // console.log(phones);
     // console.log(phones.length);
     const slicePhone = phones.slice(0, 20);
     // console.log(slicePhone);
-
-    const searchResult = document.getElementById('search-result');
-    searchResult.textContent = '';
-    slicePhone?.forEach(phone => {
-        // console.log(phone.length);
-        const div = document.createElement('div');
-        div.classList.add('col');
-        div.innerHTML = `
+    if (slicePhone.length == 0) {
+        errorMessage('block');
+        toggleSpinner('none');
+    } else {
+        errorMessage('none');
+        const searchResult = document.getElementById('search-result');
+        searchResult.textContent = '';
+        slicePhone?.forEach(phone => {
+            // console.log(phone.length);
+            const div = document.createElement('div');
+            div.classList.add('col');
+            div.innerHTML = `
             <div class="card phn-img">
                 <img src="${phone.image}" class="card-img-top" alt="...">
                 <div class="card-body">
@@ -35,9 +45,10 @@ const displaySearchResult = phones => {
                 </div>
             </div>
         `;
-        searchResult.appendChild(div);
-    });
-    toggleSpinner('none');
+            searchResult.appendChild(div);
+        });
+        toggleSpinner('none');
+    }
 }
 const phoneDetails = async phoneid => {
     // console.log(phoneid);
@@ -61,7 +72,7 @@ const displayPhoneDetails = phone => {
                     <div class="details-img">
                         <img src="${phone.image}" class="img-fluid rounded-start" alt="...">
                     </div>
-                    <div class="mt-5">
+                    <div class="mt-2">
                         <h6 class="card-title">Name: ${phone.name}</h6>
                         <h6 class="card-title">Release Date: ${phone.releaseDate ? phone.releaseDate : 'Not Found'}</h6>
                     </div>
