@@ -11,10 +11,15 @@ const phoneSearch = async () => {
     displaySearchResult(data.data);
 }
 const displaySearchResult = phones => {
+    // console.log(phones);
+    // console.log(phones.length);
+    const slicePhone = phones.slice(0, 20);
+    console.log(slicePhone);
+
     const searchResult = document.getElementById('search-result');
     searchResult.textContent = '';
-    phones?.forEach(phone => {
-        // console.log(phone);
+    slicePhone?.forEach(phone => {
+        // console.log(phone.length);
         const div = document.createElement('div');
         div.classList.add('col');
         div.innerHTML = `
@@ -39,20 +44,20 @@ const phoneDetails = async phoneid => {
     displayPhoneDetails(data.data);
 }
 const displayPhoneDetails = phone => {
-    console.log(phone);
+    // console.log(phone);
     const phoneDetailsContaine = document.getElementById('phone-details');
     phoneDetailsContaine.textContent = '';
     const div = document.createElement('div');
     div.classList.add('col');
     div.innerHTML = `
-    <div class="card mb-3 mx-auto" style="max-width: 1000px;">
+    <div class="card mb-3 mx-auto" style="max-width: 100;">
         <div class="row g-0">
             <div class="col-md-4 details-img">
                 <div class="p-5">
-                    <div>
+                    <div class="details-img">
                         <img src="${phone.image}" class="img-fluid rounded-start" alt="...">
                     </div>
-                    <div class="mt-2">
+                    <div class="mt-5">
                         <h6 class="card-title">Name: ${phone.name}</h6>
                         <h6 class="card-title">Release Date: ${phone.releaseDate ? phone.releaseDate : 'Not Found'}</h6>
                     </div>
@@ -71,13 +76,18 @@ const displayPhoneDetails = phone => {
                         ${phone.mainFeatures.sensors[3]},${phone.mainFeatures.sensors[4]},
                         ${phone.mainFeatures.sensors[5]}
                     </p>
-                    <h6 class="card-title">Other: ${phone.others ? phone.others.Bluetooth || phone.others : 'Not Found'}</h6>
-
+                    <h5 class="card-title">Others:- ${phone.others ? '' : 'Information not avilable'}</h5>
+                    <p class="card-text">Bluetooth: ${phone.others ? phone.others.Bluetooth || phone.others.Bluetooth : ''}</p>
+                    <p class="card-text">GPS: ${phone.others ? phone.others.GPS || phone.others.GPS : ''}</p>
+                    <p class="card-text">NFC: ${phone.others ? phone.others.NFC || phone.others.NFC : ''}</p>
+                    <p class="card-text">Radio: ${phone.others ? phone.others.Radio || phone.others.Radio : ''}</p>
+                    <p class="card-text">USB: ${phone.others ? phone.others.USB || phone.others.USB : ''}</p>
+                    <p class="card-text">WLAN: ${phone.others ? phone.others.WLAN || phone.others.WLAN : ''}</p>
                 </div>
             </div>
         </div>
     </div>
     `;
     phoneDetailsContaine.appendChild(div);
-
 }
+
